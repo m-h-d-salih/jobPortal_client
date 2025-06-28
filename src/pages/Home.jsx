@@ -108,7 +108,7 @@ const Home = () => {
             end={jobs?.length || 100} 
             label="Active Jobs" 
             color="text-blue-600" 
-            suffix="+"
+            suffix={jobs?.length<100?'':'+'}
           />
           <CounterCard 
             end={200} 
