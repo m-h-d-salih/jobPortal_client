@@ -1,9 +1,9 @@
-// components/JobModal.jsx
 import React from 'react';
 import {
   MapPin, Calendar,  X
 } from 'lucide-react';
 import { useState } from 'react';
+import dayjs from 'dayjs'; 
 
 const JobModal = ({ job, onClose }) => {
   if (!job) return null;
@@ -26,6 +26,7 @@ const isSaved=(id)=>{
     return jobs?.find(item=>item._id===id)
     
 }
+ const formattedDate = dayjs(job?.createdAt).format('MMM D, YYYY');
   return (
     <div 
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300"
@@ -49,7 +50,10 @@ const isSaved=(id)=>{
                     <MapPin className="w-4 h-4" />
                     <span>{job?.location}</span>
                   </div>
-                  
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="w-4 h-4" />
+                    <span>{formattedDate}</span>
+                  </div>
                 </div>
               </div>
             </div>
