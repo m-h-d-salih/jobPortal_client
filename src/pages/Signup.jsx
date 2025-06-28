@@ -17,7 +17,7 @@ const SignupPage = () => {
       .email("Invalid email address")
       .required("Email is required"),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
   });
 
@@ -31,6 +31,7 @@ const SignupPage = () => {
     onSubmit: async (values) => {
       try {
           const res = await axiosInstance.post('/user/signup', values);
+          console.log(res)
         if (res.data?.status==="success") {
           toast.success("User registration successfull");
           setTimeout(() => {
@@ -38,11 +39,12 @@ const SignupPage = () => {
           }, 1000);
         }
       } catch (error) {
-       const message =
-    
-    'Something went wrong during registration';
-
-  toast.error(message);
+        const message= error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.response?.statusText ||
+      error?.message ||
+      'Network error or server unavailable';
+      toast.error(message)
       }
     },
   });

@@ -14,7 +14,7 @@ const LoginPage= () => {
       .email("Invalid email address")
       .required("Email is required"),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
   });
   const navigate=useNavigate()
@@ -42,15 +42,14 @@ const LoginPage= () => {
             navigate('/')
           },1000)
         }
-      return res.data
 
       } catch (error) {
-         const message =
-    error?.response?.data?.message ||
-    error?.response?.data?.error ||
-    'Incorrect username or password';
-
-  toast.error(message);
+        const message= error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.response?.statusText ||
+      error?.message ||
+      'Network error or server unavailable';
+      toast.error(message)
       }
 
     },
