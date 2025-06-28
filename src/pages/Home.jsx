@@ -132,7 +132,7 @@ const Home = () => {
         <section className="max-w-7xl mx-auto px-6 pb-12">
           <h3 className="text-3xl font-bold text-slate-800 mb-8">Featured Jobs</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {jobs.map((job) => (
+            {jobs.map((job, index) => (
               <motion.div
                 key={job?._id}
                 onClick={() => handleJobClick(job)}
@@ -141,12 +141,18 @@ const Home = () => {
                     ? 'border-blue-500 shadow-xl scale-105' 
                     : 'border-transparent hover:border-blue-200'
                 }`}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  delay: index * 0.1,
+                  duration: 0.5,
+                  ease: "easeOut"
+                }}
                 whileHover={{ 
                   y: -5,
                   boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)"
                 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
