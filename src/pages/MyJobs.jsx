@@ -5,6 +5,7 @@ import JobModal from '../components/modal/JobModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axiosInstance from '../API/axiosInstance';
 import toast from 'react-hot-toast';
+import PostJobButton from '../components/button/PostJobButton';
 
 const MyJobs = () => {
     const userId=localStorage.getItem('user')
@@ -88,16 +89,11 @@ onError:(error)=>{
       <section className="max-w-7xl mx-auto px-6 pt-16 pb-12">
         <div className="flex items-center justify-between mb-8">
           <h3 className="text-3xl font-bold text-slate-800">My Jobs</h3>
-          <button 
-            onClick={() => setShowPostModal(true)}
-            className="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-          >
-            <Plus className="w-5 h-5" />
-            <span>Post a Job</span>
-          </button>
+           <PostJobButton onClick={() => setShowPostModal(true)} />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
           {jobs.map((job) => (
             <div
               key={job._id}

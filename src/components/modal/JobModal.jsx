@@ -49,10 +49,7 @@ const isSaved=(id)=>{
                     <MapPin className="w-4 h-4" />
                     <span>{job?.location}</span>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{job?.createdAt}</span>
-                  </div>
+                  
                 </div>
               </div>
             </div>

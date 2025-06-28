@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { X, MapPin, Clock, DollarSign, Users, Calendar, Award, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import JobModal from '../components/modal/JobModal';
@@ -7,64 +7,6 @@ import axios from 'axios';
 import axiosInstance from '../API/axiosInstance';
 import JobSkeleton from '../components/skeleton/JobSkeleton';
 import ErrorFallback from '../components/skeleton/ErrorFallBack';
-
-// Counter component with animation
-const CounterCard = ({ end, label, color, suffix }) => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [isVisible]);
-
-  useEffect(() => {
-    if (isVisible) {
-      let startTime = null;
-      const duration = 2000; // 2 seconds
-
-      const animate = (currentTime) => {
-        if (startTime === null) startTime = currentTime;
-        const progress = Math.min((currentTime - startTime) / duration, 1);
-        
-        // Easing function for smooth animation
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        setCount(Math.floor(easeOutQuart * end));
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-
-      requestAnimationFrame(animate);
-    }
-  }, [isVisible, end]);
-
-  return (
-    <div 
-      ref={ref}
-      className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-    >
-      <div className={`text-3xl font-bold ${color} mb-2`}>
-        {count}{suffix}
-      </div>
-      <div className="text-slate-600">{label}</div>
-    </div>
-  );
-};
 
 const Home = () => {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -104,24 +46,18 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <CounterCard 
-            end={jobs?.length || 100} 
-            label="Active Jobs" 
-            color="text-blue-600" 
-            suffix={jobs?.length<100?'':'+'}
-          />
-          <CounterCard 
-            end={200} 
-            label="Companies" 
-            color="text-indigo-600" 
-            suffix="+"
-          />
-          <CounterCard 
-            end={10} 
-            label="Candidates" 
-            color="text-purple-600" 
-            suffix="k+"
-          />
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-blue-600 mb-2">{jobs?.length || 100}+</div>
+            <div className="text-slate-600">Active Jobs</div>
+          </div>
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-indigo-600 mb-2">200+</div>
+            <div className="text-slate-600">Companies</div>
+          </div>
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-purple-600 mb-2">10k+</div>
+            <div className="text-slate-600">Candidates</div>
+          </div>
         </div>
       </section>
 
@@ -132,7 +68,7 @@ const Home = () => {
         <section className="max-w-7xl mx-auto px-6 pb-12">
           <h3 className="text-3xl font-bold text-slate-800 mb-8">Featured Jobs</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {jobs.map((job, index) => (
+            {jobs.map((job) => (
               <motion.div
                 key={job?._id}
                 onClick={() => handleJobClick(job)}
@@ -141,18 +77,12 @@ const Home = () => {
                     ? 'border-blue-500 shadow-xl scale-105' 
                     : 'border-transparent hover:border-blue-200'
                 }`}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: index * 0.1,
-                  duration: 0.5,
-                  ease: "easeOut"
-                }}
                 whileHover={{ 
                   y: -5,
                   boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)"
                 }}
                 whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">

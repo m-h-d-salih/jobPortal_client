@@ -29,7 +29,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200">
+    <nav className="bg-white shadow-md border-b border-gray-200" >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
@@ -63,7 +63,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop Profile Icon (Hidden on Mobile) */}
           <div className="relative hidden md:block">
             {isLogged ? (
               <button
@@ -85,7 +84,7 @@ export default function Navbar() {
             )}
 
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200" >
                 <div className="px-4 py-2 border-b border-gray-100">
                   <p className="text-sm font-medium text-gray-900">{name}</p>
                   <p className="text-xs text-gray-500">{email}</p>
@@ -100,7 +99,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Hamburger Menu */}
           <div className="md:hidden relative">
             <button
               onClick={toggleDropdown}
@@ -122,7 +120,7 @@ export default function Navbar() {
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-2 z-50 border border-gray-200">
+              <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-2 z-50 border border-gray-200"  onClick={() => setIsDropdownOpen(false)}>
                 <div className="px-4 py-3 border-b border-gray-100">
                   <p className="text-sm font-medium text-gray-900">{name}</p>
                   <p className="text-xs text-gray-500">{email}</p>
@@ -135,7 +133,7 @@ export default function Navbar() {
                   >
                     Jobs For You
                   </Link>
-                  <Link
+                 {isLogged && (<><Link
                     to="/myjobs"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
                   >
@@ -146,7 +144,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
                   >
                     Saved Jobs
-                  </Link>
+                  </Link></>)} 
                 </div>
 
                 <div className="border-t border-gray-100 pt-2">
@@ -163,7 +161,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Overlay */}
       {isDropdownOpen && (
         <div
           className="fixed inset-0 z-40"
@@ -171,7 +168,7 @@ export default function Navbar() {
         />
       )}
 
-      <main>
+      <main >
         <Outlet />
       </main>
     </nav>
