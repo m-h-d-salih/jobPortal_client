@@ -43,7 +43,7 @@ let logo= "💼"
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-            <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
+            <div className="text-3xl font-bold text-blue-600 mb-2">{jobs?.length || 100}+</div>
             <div className="text-slate-600">Active Jobs</div>
           </div>
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
