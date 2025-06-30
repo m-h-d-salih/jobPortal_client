@@ -43,7 +43,7 @@ const isSaved=(id)=>{
                 {"💼"}
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-800">{job.title}</h3>
+                <h3 className="text-2xl font-bold text-slate-800">{job.name}</h3>
                 <p className="text-slate-600">{job.company}</p>
                 <div className="flex items-center space-x-4 mt-2 text-sm text-slate-500">
                   <div className="flex items-center space-x-1">
